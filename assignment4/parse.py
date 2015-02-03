@@ -52,7 +52,7 @@ import numpy as np
 
 #print np.unique(cleaned_zip, return_counts=True)
 
-'''def zip_code_barchart(data):
+def zip_code_barchart(data):
 	fig = plt.figure()
 	width = .1
 	unique_zip_array = np.unique(data)
@@ -66,7 +66,7 @@ import numpy as np
 	#plt.show()
 	plt.savefig("hpzip_bar.jpg")
 
-zip_code_barchart(cleaned_zip)'''
+zip_code_barchart(cleaned_zip)
 
 
 #combine into an executable program
