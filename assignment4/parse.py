@@ -66,13 +66,29 @@ import numpy as np
 	#plt.show()
 	plt.savefig("hpzip_bar.jpg")
 
-zip_code_barchart(cleaned_zip)	'''
+zip_code_barchart(cleaned_zip)'''
 
 
 #combine into an executable program
-def sys.argv[1]:
-for word in python parse.py
-	if word == "latlong":
+def zip_code_barchart2(data):
+	fig = plt.figure()
+	width = .1
+	unique_zip_array = np.unique(data)
+	unique_zip = unique_zip_array.tolist()
+	zip_counts = np.unique(data, return_counts=True)
+	plt.bar(unique_zip, zip_counts[1])
+	plt.title("Hyde Park Zip Code Bar Chart")
+	plt.xlabel("Zip Codes")
+	plt.ylabel("Frequency")
+	plt.tight_layout()
+	plt.show()
+	#plt.savefig("hpzip_bar.jpg")
+
+zip_code_barchart2(cleaned_zip)
+
+for arg in sys.argv:
+	if arg == "latlong":
 		print get_avg_latlng(hpp)
-	elif word == "hist":
-		print zip_code_barchart(cleaned_zip)
+	elif arg == "hist":
+		print zip_code_barchart2(cleaned_zip)
+
