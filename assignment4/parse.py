@@ -84,9 +84,7 @@ def zip_code_barchart2(data):
 	plt.show()
 	#plt.savefig("hpzip_bar.jpg")
 
-for arg in sys.argv:
-	if arg == "latlong":
-		print get_avg_latlng(hpp)
-	elif arg == "hist":
-		print zip_code_barchart2(cleaned_zip)
-
+if sys.argv[1]=="latlong":
+	print get_avg_latlng(hpp)
+elif sys.argv[1]=="hist":
+	zip_code_barchart2(cleaned_zip)
