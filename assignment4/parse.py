@@ -54,17 +54,20 @@ import numpy as np
 
 def zip_code_barchart(data):
 	fig = plt.figure()
-	width = .1
+	ax = fig.add_subplot(111)
 	unique_zip_array = np.unique(data)
 	unique_zip = unique_zip_array.tolist()
 	zip_counts = np.unique(data, return_counts=True)
-	plt.bar(unique_zip, zip_counts[1])
-	plt.title("Hyde Park Zip Code Bar Chart")
-	plt.xlabel("Zip Codes")
-	plt.ylabel("Frequency")
-	plt.tight_layout()
+	ax.bar(range(len(unique_zip)), zip_counts[1])
+	ax.set_title("Hyde Park Zip Code Bar Chart")
+	ax.set_xlabel("Zip Codes")
+	ax.set_ylabel("Frequency")
+	xTickMarks = [str(x) for x in unique_zip]
+	ax.set_xticks(np.arange(37)+.5)
+	xtickNames = ax.set_xticklabels(xTickMarks)
+	plt.setp(xtickNames, rotation=45, size = 8)
 	#plt.show()
-	plt.savefig("hpzip_bar.jpg")
+	fig.savefig("hpzip_bar.jpg")
 
 zip_code_barchart(cleaned_zip)
 
@@ -72,17 +75,21 @@ zip_code_barchart(cleaned_zip)
 #combine into an executable program
 def zip_code_barchart2(data):
 	fig = plt.figure()
-	width = .1
+	ax = fig.add_subplot(111)
 	unique_zip_array = np.unique(data)
 	unique_zip = unique_zip_array.tolist()
 	zip_counts = np.unique(data, return_counts=True)
-	plt.bar(unique_zip, zip_counts[1])
-	plt.title("Hyde Park Zip Code Bar Chart")
-	plt.xlabel("Zip Codes")
-	plt.ylabel("Frequency")
-	plt.tight_layout()
+	ax.bar(range(len(unique_zip)), zip_counts[1])
+	ax.set_title("Hyde Park Zip Code Bar Chart")
+	ax.set_xlabel("Zip Codes")
+	ax.set_ylabel("Frequency")
+	xTickMarks = [str(x) for x in unique_zip]
+	ax.set_xticks(np.arange(37)+.5)
+	xtickNames = ax.set_xticklabels(xTickMarks)
+	plt.setp(xtickNames, rotation=45, size = 8)
 	plt.show()
-	#plt.savefig("hpzip_bar.jpg")
+	#ax.savefig("hpzip_bar.jpg")
+
 
 if sys.argv[1]=="latlong":
 	print get_avg_latlng(hpp)
