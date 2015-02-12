@@ -14,21 +14,21 @@ def getBarChartData():
 
     artist_names = [] #creates an empty list of artist names
     
-    decades = range(1900,2020, 10) #makes an array of decades, every 10 years from 1900 to 2020
+    decades = range(1900,2020, 10) #makes a list of decades, every 10 years from 1900 to 2020
     decade_dict = {} #creates an empty dictionary to fill in the following for loop
     for decade in decades: 
-        decade_dict[decade] = 0 #adds the decades from range function into the empty dictionary
+        decade_dict[decade] = 0 #adds the decades from range function and fills the empty dictionary
     
     for artist_row in artists_rows: #loops through all rows in artist.csv
         if not artist_row: 
             continue #if there is no data in the artist row, don't stop the loop, just skip (Checks if the row is a header row)
-        artist_id,name,followers, popularity = artist_row
-        artist_names.append(name) #add the info from artist row into created artist_names list
+        artist_id,name,followers, popularity = artist_row #add the info from artist row into variable artist_row
+        artist_names.append(name) #appends the name of the artist to the list artist_names
 
     for album_row  in albums_rows: #loops through data rows from albums.csv
         if not album_row:
             continue #if there is no data in the album row, don't stop the loop, just skip (Checks if the row is a header row)
-        artist_id, album_id, album_name, year, popularity = album_row
+        artist_id, album_id, album_name, year, popularity = album_row #assigns the elements from the rows to a variable, album_row
         for decade in decades:
             if (int(year) >= int(decade)) and (int(year) < (int(decade) + 10)): #if the year is greater than one decade bin, but less than the following decade bin...
                 decade_dict[decade] += 1 #add a count to that decade
