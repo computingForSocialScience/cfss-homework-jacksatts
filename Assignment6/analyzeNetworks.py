@@ -27,9 +27,9 @@ def degree(edgeList, in_or_out):
 #print degree('testcsv.csv', 'in')
 
 def combineEdgelists(edgeList1, edgeList2):
-	df1 = readEdgeList(edgeList1)
-	df2 = readEdgeList(edgeList2)
-	combinedLists = df1.append(df2)
+	#df1 = readEdgeList(edgeList1)
+	#df2 = readEdgeList(edgeList2)
+	combinedLists = edgeList1.append(edgeList2)
 	combinedLists = combinedLists.drop_duplicates()
 	return combinedLists
 
