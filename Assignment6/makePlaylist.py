@@ -5,6 +5,7 @@ from fetchArtist import *
 from fetchAlbums import *
 import random
 import numpy as np
+from io import open
 
 def fetchTrackNames(album_id):
 	url = 'https://api.spotify.com/v1/albums/' + album_id + '/tracks'
@@ -64,7 +65,7 @@ if __name__ == '__main__':
 		k += 1
 
 	#write to csv
-	f = open('playlist.csv', 'w')
+	f = open("playlist.csv", "w", encoding='utf-8')
 	try:
 		f.write('"%s", "%s","%s"\n' % (u'artist_name',u'album_name',u'track_name'))
 		for i in playlist:
