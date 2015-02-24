@@ -15,18 +15,18 @@ def readEdgeList(filename):
 #print readEdgeList("testcsv.csv")
 
 def degree(edgeList, in_or_out):
-	df = readEdgeList(edgeList)
+	#df = readEdgeList(edgeList)
 	if in_or_out == "in":
-		degree_nodes = df['artistID_2'].value_counts()
+		degree_nodes = edgeList['artistID_2'].value_counts(sort=True)
 	elif in_or_out == "out":
-		degree_nodes = df['artistID'].value_counts()
+		degree_nodes = edgeList['artistID'].value_counts(sort=True)
 	else:
 		print "Error"
 	return degree_nodes
 
 #print degree('testcsv.csv', 'in')
 
-def combineEdgelists(edgeList1, edgeList2):
+def combineEdgeLists(edgeList1, edgeList2):
 	#df1 = readEdgeList(edgeList1)
 	#df2 = readEdgeList(edgeList2)
 	combinedLists = edgeList1.append(edgeList2)
@@ -37,8 +37,8 @@ def combineEdgelists(edgeList1, edgeList2):
 
 def pandasToNetworkX(edgeList):
 	graph = nx.DiGraph()
-	df = readEdgeList(edgeList)
-	edges = df.to_records(index=False)
+	#df = readEdgeList(edgeList)
+	edges = edgeList.to_records(index=False)
 	graph.add_edges_from(edges)
 	#print graph.edges()
 	return graph
