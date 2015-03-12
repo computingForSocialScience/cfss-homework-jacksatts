@@ -61,9 +61,9 @@ def createNewPlaylist(artist):
     playlistId= cur.lastrowid
     
     #pick tracks
-    k = 0
+    k = 1
     playlist = []
-    while k != 30:
+    while k != 31:
         artist_name = fetchArtistInfo(randomCentralNode(g))['name']
         album_id = np.random.choice(fetchAlbumIds(fetchArtistId(artist_name)))
         album_name = fetchAlbumInfo(album_id)['name']
