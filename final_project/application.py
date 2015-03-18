@@ -10,37 +10,31 @@ def make_index_resp():
     # someone goes to http://127.0.0.1:5001/
     return(render_template('index.html'))
 
-#old code
+#comparison code
 
-@app.route('/playlists/')
-def make_playlists_resp():
-    cur = db.cursor()
-    cur.execute('''select * from playlists''')
-    playlists = cur.fetchall()
-    cur.close()
-    return render_template('playlists.html', playlists=playlists)
+from bokeh.plotting import figure, output_file, show
+import numpy as np
+from bokeh.plotting import figure
+from bokeh.resources import CDN
+from bokeh.embed import file_html, components
+from pandas.stats.api import ols
 
+@app.route("/compare?state=<FIPSCode>&col1=<columnId1>&col2=<columnId2>")
+def show_plot(FIPSCode, col1, col2):
+     x=col1
+     y=col2
 
-@app.route('/playlist/<playlistId>')
-def make_playlist_resp(playlistId):
-    cur = db.cursor()
-    cur.execute('''select * from songs where playlistId=%s order by songOrder ''' % playlistId)
-    songs = cur.fetchall()
-    cur.close()
-    return render_template('playlist.html',songs=songs)
+     cur = db.cursor()
+     cur.execute('''select ____ from _____;''') 
 
+     p = figure(title="___", plot_height =, plot_width=)
+     p.line(x,y)
+     p.xaxis.axis_label = ""
+     p.yaxix.axis_label = ""
+     figJS, figDiv = components(p,CDN)
 
-@app.route('/addPlaylist/',methods=['GET','POST'])
-def add_playlist():
-    if request.method == 'GET':
-        # This code executes when someone visits the page.
-        return(render_template('addPlaylist.html'))
-    elif request.method == 'POST':
-        # this code executes when someone fills out the form
-        artistName = request.form['artistName']
-        # YOUR CODE HERE
-        createNewPlaylist(artistName)
-        return(redirect("/playlists/"))
+     rendered = render_template('comparison.html', FIPSCode= , col1= , col2= , figJS=figJS, figDiv=figDiv, plotPag=plotPag)
+     return(rendered)
 
 if __name__ == '__main__':
     app.debug=True

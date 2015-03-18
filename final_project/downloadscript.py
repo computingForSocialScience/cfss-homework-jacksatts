@@ -21,22 +21,29 @@ def gettableinfo(table_id):
 		else:
 			parent_col = parent_col"""
 		tuple_list = (table_id, table_title, denominator, column_title, col_tag, parent_col)
-		table_info.append(tuple_list)
-	return table_info
+		#table_info.append(tuple_list)
+	#return table_info
+	return tuple_list
 
 #run code for table information for select tables
 table_info_list = []
 for table in census:
 	table_info_list.append(gettableinfo(table))
 
+#check appending issues
+'''for l in table_info_list:
+	if len(l) != 6: 
+		print len(l)'''
+
 #table data
-FIPS_dict = {"Mississippi": 28, "Oklahoma": 40, "Delaware": 10, "Minnesota": 27, "Illinois": 17, "Arkansas": 5, "New Mexico": 35, "Indiana": 18, "Maryland": 24, "Louisiana": 22, "Idaho": 16, "Wyoming": 56, "Tennessee": 47, "Arizona": 4, "Iowa": 19, "Michigan": 26, "Kansas": 20, "Utah": 49, "Virginia": 51, "Oregon": 41, "Connecticut": 9, "Montana": 30, "California": 6, "Massachusetts": 25, "West Virginia": 54, "South Carolina": 45, "New Hampshire": 33, "Wisconsin": 55, "Vermont": 50, "Georgia": 13, "North Dakota": 38, "Pennsylvania": 42, "Florida": 12, "Alaska": 2, "Kentucky": 21, "Hawaii": 15, "Nebraska": 31, "Missouri": 29, "Ohio": 39, "Alabama": 1, "New York": 36, "South Dakota": 46, "Colorado": 8, "New Jersey": 34, "Washington": 53, "North Carolina": 37, "District of Columbia": 11, "Texas": 48, "Nevada": 32, "Maine": 23, "Rhode Island": 44}
+FIPS_dict = {"Mississippi": "28", "Oklahoma": "40", "Delaware": "10", "Minnesota": "27", "Illinois": "17", "Arkansas": "05", "New Mexico": "35", "Indiana": "18", "Maryland": "24", "Louisiana": "22", "Idaho": "16", "Wyoming": "56", "Tennessee": "47", "Arizona": "04", "Iowa": "19", "Michigan": "26", "Kansas": "20", "Utah": "49", "Virginia": "51", "Oregon": "41", "Connecticut": "09", "Montana": "30", "California": "06", "Massachusetts": "25", "West Virginia": "54", "South Carolina": "45", "New Hampshire": "33", "Wisconsin": "55", "Vermont": "50", "Georgia": "13", "North Dakota": "38", "Pennsylvania": "42", "Florida": "12", "Alaska": "02", "Kentucky": "21", "Hawaii": "15", "Nebraska": "31", "Missouri": "29", "Ohio": "39", "Alabama": "01", "New York": "36", "South Dakota": "46", "Colorado": "08", "New Jersey": "34", "Washington": "53", "North Carolina": "37", "District of Columbia": "11", "Texas": "48", "Nevada": "32", "Maine": "23", "Rhode Island": "44"}
 states = FIPS_dict.keys()
 FIPSCode = FIPS_dict.values()
+#print FIPSCode
 
 def gettabledata(table_id):
 	for code in FIPSCode:
-		url = "http://api.censusreporter.org/1.0/data/show/latest?table_ids=" + table_id + "&geo_ids=140|04000US" + str(code)
+		url = "http://api.censusreporter.org/1.0/data/show/latest?table_ids=" + table_id + "&geo_ids=140|04000US" + code
 		req=requests.get(url)
 		data=req.json()
 		table_data = []
@@ -49,14 +56,22 @@ def gettabledata(table_id):
 					responses = data['data'][num][col]['estimate'].items()
 					for (x,y) in responses:
 						info = (table_id, code, num, col_num, x, y)
-						table_data.append(info)
-		return table_data
+						#table_data.append(info)
+		#return table_data
+	return info
 
 #run code to get table data from select tables
 table_data_list = []
 for table in census:
 	table_data_list.append(gettabledata(table))
+	print len(table_data_list)
 
+#check appending issues
+'''for l in table_data_list:
+	if len(l) != 6: 
+		print len(l)'''
+
+"""
 #create MySQL database
 dbname="final"
 host="localhost"
@@ -76,11 +91,6 @@ cur.execute(CreateTableData)
 insertQuery = '''insert into TableInfo (TableId, TableTitle, Denominator, ColumnTitle, ColumnID, ParentColId)
 values (%s, %s, %s, %s, %s, %s);'''
 
-for l in table_info_list:
-	if len(l) != 6: 
-		print len(l)
-
-"""
 cur.executemany(insertQuery, table_info_list)
 
 insertQuery2 = '''insert into TableData (TableId, FIPSCode, ColumnId, ResponseCategory, Response)
